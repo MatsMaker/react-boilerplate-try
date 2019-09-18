@@ -1,21 +1,31 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, call, takeLatest } from 'redux-saga/effects';
+import { TASK_LIST_FETCH_REQUEST, SET_FILTER } from './constants';
+import { createApi, checkStatus } from '../../utils/createApi';
 import {
-  TASK_LIST_FETCH_REQUEST,
-  TASK_LIST_FETCH_FAIL,
-  TASK_LIST_FETCH_SUCCEEDED,
-} from './constants';
-import { createApi } from '../../utils/createApi';
+  fetchTaskListRequestAction,
+  fetchTaskListFail,
+  fetchTaskListSucceeded,
+} from './actions';
 
 function* fetchTaskList(action) {
   try {
-    const data = yield createApi.get('/', action.payload);
-    yield put({ type: TASK_LIST_FETCH_SUCCEEDED, data });
+    const response = yield call(createApi().get, '/', action.request);
+    if (checkStatus(response)) {
+      throw response.data;
+    }
+    const payload = response.data.message;
+    yield put(fetchTaskListSucceeded(payload));
   } catch (error) {
-    yield put({ type: TASK_LIST_FETCH_FAIL, error });
+    yield put(fetchTaskListFail(error));
   }
 }
 
+function* fetchTaskListRequest(action) {
+  yield put(fetchTaskListRequestAction(action.filter));
+}
+
 function* saga() {
+  yield takeLatest(SET_FILTER, fetchTaskListRequest);
   yield takeLatest(TASK_LIST_FETCH_REQUEST, fetchTaskList);
 }
 

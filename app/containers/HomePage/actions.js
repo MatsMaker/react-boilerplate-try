@@ -1,18 +1,18 @@
 import {
-  INITIATED,
   TASK_LIST_FETCH_REQUEST,
   TASK_LIST_FETCH_SUCCEEDED,
   TASK_LIST_FETCH_FAIL,
+  SET_FILTER,
 } from './constants';
 
-export const initiateAction = payload => ({
-  type: INITIATED,
-  payload,
+export const setFilterAction = filter => ({
+  type: SET_FILTER,
+  filter,
 });
 
-export const fetchTaskListRequest = payload => ({
+export const fetchTaskListRequestAction = request => ({
   type: TASK_LIST_FETCH_REQUEST,
-  payload,
+  request,
 });
 
 export const fetchTaskListFail = payload => ({

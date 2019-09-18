@@ -1,5 +1,8 @@
 import { create } from 'apisauce';
 
+const API_URL =
+  process.env.API_URL || 'https://uxcandy.com/~shapoval/test-task-backend/v2';
+
 export function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
@@ -8,15 +11,19 @@ export function parseJSON(response) {
 }
 
 export function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
+  if (
+    String(response.data.status) !== 'error' // TODO server error fix server response code
+    // (response.status >= 200 && response.status < 300)
+  ) {
+    return false;
   }
-
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  return true;
 }
 
-export const createApi = create({
-  baseURL: `${process.env.API_URL}`,
-});
+export const createApi = options => {
+  const api = create({
+    baseURL: `${API_URL}`,
+    ...options,
+  });
+  return api;
+};

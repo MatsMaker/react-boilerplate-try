@@ -3,10 +3,10 @@ import { initialState } from './reducer';
 
 const selectHome = state => state.home || initialState;
 
-const makeSelectIsInitiated = () =>
+const makeSelectHomeState = () =>
   createSelector(
     selectHome,
-    homeState => homeState.isInitiated,
+    homeState => homeState,
   );
 
-export { selectHome, makeSelectIsInitiated };
+export { selectHome, makeSelectHomeState };

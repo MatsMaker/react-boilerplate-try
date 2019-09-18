@@ -1,16 +1,21 @@
 import produce from 'immer';
 import {
-  INITIATED,
   TASK_LIST_FETCH_FAIL,
   TASK_LIST_FETCH_SUCCEEDED,
+  TASK_LIST_FETCH_REQUEST,
+  SET_FILTER,
 } from './constants';
 
 export const initialState = {
-  isInitiated: false,
+  taskListIsLoading: false,
+  taskList: [],
+  loadError: undefined,
+  totalTaskCount: undefined,
   taskListRequest: {
     sort_field: 'id',
-    sort_direction: 'sort_direction',
-    page: 1,
+    sort_direction: 'asc',
+    page: 0,
+    developer: undefined,
   },
 };
 
@@ -18,14 +23,22 @@ export const initialState = {
 const homeProviderReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case INITIATED:
-        draft.isInitiated = true;
+      case SET_FILTER:
+        draft.taskListRequest = action.filter;
+        break;
+      case TASK_LIST_FETCH_REQUEST:
+        draft.taskListIsLoading = true;
         break;
       case TASK_LIST_FETCH_FAIL:
-        draft.tasksList = [];
+        draft.taskListIsLoading = false;
+        draft.taskList = [];
+        draft.loadError = action.payload.message;
         break;
       case TASK_LIST_FETCH_SUCCEEDED:
-        draft.tasksList = action.payload;
+        draft.taskListIsLoading = false;
+        draft.loadError = undefined;
+        draft.taskList = action.payload.tasks;
+        draft.totalTaskCount = action.payload.total_task_count;
         break;
     }
   });
