@@ -9,3 +9,9 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 export const AUTH_TOKEN_KEY = 'auth-token';
+export const AUTH_KEY = 'auth';
+export const LOGIN_INIT = 'app/auth/LOGIN_INIT';
+export const LOGIN_REQUEST = 'app/auth/LOGIN_REQUEST';
+export const LOGIN_FAIL = 'app/auth/LOGIN_FAIL';
+export const LOGIN_SUCCEEDED = 'app/auth/LOGIN_SUCCEEDED';
+export const LOGOUT = 'app/auth/LOGOUT';

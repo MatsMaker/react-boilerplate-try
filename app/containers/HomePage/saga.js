@@ -9,7 +9,11 @@ import {
 
 function* fetchTaskList(action) {
   try {
-    const response = yield call(createApi().get, '/', action.request);
+    const response = yield call(
+      createApi().get,
+      `/?developer=${process.env.DEVELOPER}`,
+      action.request,
+    );
     if (checkStatus(response)) {
       throw response.data;
     }

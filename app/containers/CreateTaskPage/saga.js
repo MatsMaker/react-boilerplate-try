@@ -6,14 +6,13 @@ import { createTaskFailAction, creteTaskSucceededAction } from './actions';
 
 function* createTask(action) {
   try {
-    const { developer } = action.request;
     const response = yield call(
       createApi({
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       }).post,
-      `/create?developer=${developer}`,
+      `/create?developer=${process.env.DEVELOPER}`,
       qs.stringify(action.request, { encode: true }),
     );
     if (checkStatus(response)) {

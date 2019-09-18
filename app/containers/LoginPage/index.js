@@ -6,21 +6,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Wrapper from '../TaskListItem/Wrapper';
 import LoginForm from './LoginForm';
-import { useInjectReducer } from '../../utils/injectReducer';
-import { useInjectSaga } from '../../utils/injectSaga';
-import reducer from './reducer';
-import saga from './saga';
-import { KEY } from './constants';
-import { loginRequestAction } from './actions';
-import { errorsSelector, resultSelector } from './selectors';
+import { loginRequestAction } from '../App/actions';
+import { errorsSelector, resultSelector } from '../App/selectors';
 import NavigationBar from '../../components/NavigationBar';
 
-const key = KEY;
-
-function CreateTaskPage({ onLogin, errors, result }) {
-  useInjectReducer({ key, reducer });
-  useInjectSaga({ key, saga });
-
+function LoginPage({ onLogin, errors, result }) {
   if (result) {
     return <Redirect to="/" />;
   }
@@ -35,7 +25,7 @@ function CreateTaskPage({ onLogin, errors, result }) {
   );
 }
 
-CreateTaskPage.propTypes = {
+LoginPage.propTypes = {
   errors: PropTypes.object,
   result: PropTypes.object,
   onLogin: PropTypes.func,
@@ -58,4 +48,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(CreateTaskPage);
+)(LoginPage);

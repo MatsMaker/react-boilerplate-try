@@ -15,7 +15,6 @@ export const initialState = {
     sort_field: 'id',
     sort_direction: 'asc',
     page: 0,
-    developer: undefined,
   },
 };
 

@@ -7,10 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import ReactPaginate from 'react-paginate';
 import messages from './messages';
 import Section from './Section';
-import AtPrefix from './AtPrefix';
 import H2 from '../../components/H2';
-import Form from './Form';
-import Input from './Input';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
 import saga from './saga';
@@ -32,13 +29,6 @@ export function HomePage({ state, ...props }) {
       ...state.taskListRequest,
     });
   }, []);
-
-  const onChangeDeveloper = evt => {
-    props.updateFilter({
-      ...state.taskListRequest,
-      developer: evt.target.value,
-    });
-  };
 
   const onChangePage = data => {
     props.updateFilter({
@@ -62,20 +52,6 @@ export function HomePage({ state, ...props }) {
         <H2>
           <FormattedMessage {...messages.title} />
         </H2>
-        <Form>
-          <label htmlFor="developer">
-            <AtPrefix>
-              <FormattedMessage {...messages.label} />
-            </AtPrefix>
-            <Input
-              id="developer"
-              type="text"
-              placeholder="developer"
-              value={state.developer}
-              onChange={onChangeDeveloper}
-            />
-          </label>
-        </Form>
         <SortTaskList onChange={onChangeSort} value={state.taskListRequest} />
         <TaskList
           loading={state.taskListIsLoading}

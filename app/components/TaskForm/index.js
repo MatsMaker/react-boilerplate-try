@@ -8,17 +8,6 @@ const TaskForm = props => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label htmlFor="developer">Developer</label>
-        <div>
-          <Field
-            name="developer"
-            component="input"
-            type="text"
-            placeholder="developer"
-          />
-        </div>
-      </div>
-      <div>
         <label htmlFor="username">Username</label>
         <div>
           <Field
