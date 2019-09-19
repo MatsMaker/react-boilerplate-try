@@ -6,7 +6,6 @@ const RepoLink = styled(NormalA)`
   color: black;
   display: flex;
   align-items: center;
-  width: 100%;
 `;
 
 export default RepoLink;

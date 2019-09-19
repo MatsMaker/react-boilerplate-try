@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
-import Wrapper from '../../containers/TaskListItem/Wrapper';
+import Wrapper from './Wrapper';
 
 const fieldOptions = [
   {

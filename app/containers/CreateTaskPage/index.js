@@ -14,6 +14,8 @@ import { createTaskRequestAction, resetAction } from './actions';
 import { makeSelectCreateTaskPageState } from './selectors';
 import NavigationBar from '../../components/NavigationBar';
 import H2 from '../../components/H2';
+import WrapForm from '../../components/WrapForm';
+import H3 from '../../components/H3';
 
 const key = KEY;
 
@@ -34,14 +36,17 @@ function CreateTaskPage({ state, createTask, reset }) {
   return (
     <>
       <NavigationBar />
-      {state.result && <H2>Created: {state.result.id}</H2>}
-      <Wrapper>
-        <CreateTaskForm
-          onSubmit={showResult}
-          errors={state.errors}
-          isReset={!!state.result}
-        />
-      </Wrapper>
+      <WrapForm className="create-form">
+        <H2>Create new task</H2>
+        <Wrapper>
+          <CreateTaskForm
+            onSubmit={showResult}
+            errors={state.errors}
+            isReset={!!state.result}
+          />
+        </Wrapper>
+        {state.result && <H3>Created: {state.result.id}</H3>}
+      </WrapForm>
     </>
   );
 }

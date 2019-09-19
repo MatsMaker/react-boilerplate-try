@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { Field } from 'redux-form';
 import ErrorList from '../FormErrors';
 
-const TaskForm = props => {
+const Form = props => {
   const {
     isReset,
     handleSubmit,
@@ -13,6 +14,7 @@ const TaskForm = props => {
     errors,
     reset,
     initialValues,
+    className,
   } = props;
 
   if (initialValues && load) {
@@ -24,7 +26,7 @@ const TaskForm = props => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={className} onSubmit={handleSubmit}>
       <div>
         <label htmlFor="username">Username</label>
         <div>
@@ -54,7 +56,7 @@ const TaskForm = props => {
         </div>
       </div>
       <ErrorList errors={errors} />
-      <div>
+      <div className="controller">
         <button type="submit" disabled={pristine || submitting}>
           Submit
         </button>
@@ -63,7 +65,7 @@ const TaskForm = props => {
   );
 };
 
-TaskForm.propTypes = {
+Form.propTypes = {
   errors: PropTypes.object,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
@@ -72,6 +74,23 @@ TaskForm.propTypes = {
   isReset: PropTypes.bool,
   initialValues: PropTypes.object,
   load: PropTypes.func,
+  className: PropTypes.string,
 };
+
+const TaskForm = styled(Form)`
+  width: 250px;
+
+  label {
+    margin: 15px 0 5px 0;
+    display: inline-block;
+  }
+  input,
+  textarea {
+    padding: 5px;
+  }
+  .controller {
+    margin-top: 15px;
+  }
+`;
 
 export default TaskForm;

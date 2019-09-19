@@ -17,6 +17,7 @@ import NavigationBar from '../../components/NavigationBar';
 import H2 from '../../components/H2';
 import ResultList from '../../components/FormResults';
 import { resultSelector } from '../App/selectors';
+import WrapFormBase from '../../components/WrapForm';
 
 const key = KEY;
 
@@ -52,15 +53,21 @@ function EditTaskPage({ state, updateTask, match, tasks, auth, reset }) {
   return (
     <>
       <NavigationBar />
-      <H2>Edit task: {match.params.id}</H2>
-      <ResultList result={state.result} />
-      <Wrapper>
-        <EditTaskForm
-          onSubmit={onSubmit}
-          errors={state.errors}
-          initialValues={task}
-        />
-      </Wrapper>
+      <WrapFormBase className="edit-form">
+        <div>
+          <H2>Edit task: {match.params.id}</H2>
+          <Wrapper>
+            <EditTaskForm
+              className="edit-task-form"
+              onSubmit={onSubmit}
+              errors={state.errors}
+              initialValues={task}
+              isReset={!!state.result}
+            />
+          </Wrapper>
+          <ResultList result={state.result} />
+        </div>
+      </WrapFormBase>
     </>
   );
 }

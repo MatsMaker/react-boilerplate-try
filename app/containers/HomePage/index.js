@@ -4,10 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import ReactPaginate from 'react-paginate';
+import PaginateBase from 'components/Paginate/BaseStyled';
+import H2 from 'components/H2';
 import messages from './messages';
 import Section from './Section';
-import H2 from '../../components/H2';
 import { useInjectReducer } from '../../utils/injectReducer';
 import { useInjectSaga } from '../../utils/injectSaga';
 import saga from './saga';
@@ -49,31 +49,31 @@ export function HomePage({ state, ...props }) {
   return (
     <>
       <NavigationBar />
+      <H2>
+        <FormattedMessage {...messages.title} />
+      </H2>
       <Section>
-        <H2>
-          <FormattedMessage {...messages.title} />
-        </H2>
         <SortTaskList onChange={onChangeSort} value={state.taskListRequest} />
-        <TaskList
-          loading={state.taskListIsLoading}
-          error={state.loadError}
-          tasks={state.taskList}
+      </Section>
+      <TaskList
+        loading={state.taskListIsLoading}
+        error={state.loadError}
+        tasks={state.taskList}
+      />
+      <Section>
+        <PaginateBase
+          previousLabel="previous"
+          nextLabel="next"
+          breakLabel="..."
+          breakClassName="break-me"
+          pageCount={Number(state.totalTaskCount)}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={2}
+          onPageChange={onChangePage}
+          containerClassName="pagination"
+          subContainerClassName="pages pagination"
+          activeClassName="active"
         />
-        {state.taskList.length > 0 && (
-          <ReactPaginate
-            previousLabel="previous"
-            nextLabel="next"
-            breakLabel="..."
-            breakClassName="break-me"
-            pageCount={Number(state.totalTaskCount)}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={2}
-            onPageChange={onChangePage}
-            containerClassName="pagination"
-            subContainerClassName="pages pagination"
-            activeClassName="active"
-          />
-        )}
       </Section>
     </>
   );

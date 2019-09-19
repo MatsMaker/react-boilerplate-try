@@ -9,27 +9,30 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Link } from 'react-router-dom';
 import ListItem from 'components/ListItem';
-import IssueLink from './IssueLink';
 import RepoLink from './RepoLink';
-import Wrapper from './Wrapper';
 import { resultSelector } from '../App/selectors';
+import WrapRow from './WrapRow';
+import EditLink from './EditLink';
 
 function RepoListItem(props) {
   const { item, auth } = props;
   // Put together the content of the repository
   const content = (
-    <Wrapper>
-      <div>{item.id}</div>
-      <IssueLink>{item.username}</IssueLink>
-      <RepoLink href={`mailto: ${item.email}`} target="_blank">
+    <WrapRow>
+      <div className="item-id">{item.id}</div>
+      <div className="user-name">{item.username}</div>
+      <RepoLink className="mail" href={`mailto: ${item.email}`} target="_blank">
         {item.email}
       </RepoLink>
-      <div>{item.text}</div>
-      <div>{item.status}</div>
-      {auth && <Link to={`edit/${item.id}`}>[Edit]</Link>}
-    </Wrapper>
+      <div className="text">{item.text}</div>
+      <div className="status">{item.status}</div>
+      {auth && (
+        <EditLink className="edit" to={`edit/${item.id}`}>
+          Edit
+        </EditLink>
+      )}
+    </WrapRow>
   );
   // Render the content into a list item
   return <ListItem key={`repo-list-item-${item.full_name}`} item={content} />;

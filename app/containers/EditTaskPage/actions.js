@@ -2,8 +2,8 @@ import {
   UPDATE_TASK_REQUEST,
   UPDATE_TASK_FAIL,
   UPDATE_TASK_SUCCEEDED,
+  RESET,
 } from './constants';
-import { RESET } from '../CreateTaskPage/constants';
 
 export const updateTaskRequestAction = request => ({
   type: UPDATE_TASK_REQUEST,
