@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import Wrapper from '../TaskListItem/Wrapper';
 import LoginForm from './LoginForm';
 import { loginRequestAction } from '../App/actions';
 import { errorsSelector, resultSelector } from '../App/selectors';
 import NavigationBar from '../../components/NavigationBar';
+import WrapFormBase from '../../components/WrapForm';
+import H2 from '../../components/H2';
 
 function LoginPage({ onLogin, errors, result }) {
   if (result) {
@@ -18,9 +19,10 @@ function LoginPage({ onLogin, errors, result }) {
   return (
     <>
       <NavigationBar />
-      <Wrapper>
+      <WrapFormBase className="create-form">
+        <H2>Login</H2>
         <LoginForm onSubmit={onLogin} errors={errors} />
-      </Wrapper>
+      </WrapFormBase>
     </>
   );
 }

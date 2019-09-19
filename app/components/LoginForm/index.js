@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
+import styled from 'styled-components';
 import ErrorList from '../FormErrors';
 
-const LoginForm = props => {
-  const { handleSubmit, pristine, submitting, errors } = props;
+const Form = props => {
+  const { className, handleSubmit, pristine, submitting, errors } = props;
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={className} onSubmit={handleSubmit}>
       <div>
         <label htmlFor="username">Username</label>
         <div>
@@ -30,7 +31,7 @@ const LoginForm = props => {
         </div>
       </div>
       <ErrorList errors={errors} />
-      <div>
+      <div className="controller">
         <button type="submit" disabled={pristine || submitting}>
           Login
         </button>
@@ -39,11 +40,28 @@ const LoginForm = props => {
   );
 };
 
-LoginForm.propTypes = {
+Form.propTypes = {
   errors: PropTypes.object,
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func,
+  className: PropTypes.string,
 };
+
+const LoginForm = styled(Form)`
+  width: 250px;
+
+  label {
+    margin: 15px 0 5px 0;
+    display: inline-block;
+  }
+  input,
+  textarea {
+    padding: 5px;
+  }
+  .controller {
+    margin-top: 15px;
+  }
+`;
 
 export default LoginForm;
