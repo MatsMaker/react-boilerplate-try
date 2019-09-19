@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
+import EditTaskPage from 'containers/EditTaskPage/Loadable';
 import CreateTaskPage from 'containers/CreateTaskPage/Loadable';
 import LoginPage from 'containers/LoginPage';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
@@ -40,6 +41,7 @@ function App({ initAuth }) {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/create" component={CreateTaskPage} />
+        <Route path="/edit/:id" component={EditTaskPage} />
         <Route path="/login" component={LoginPage} />
         <Route component={NotFoundPage} />
       </Switch>

@@ -37,12 +37,14 @@ function* createTask(action) {
 }
 
 function* saveAuth(action) {
-  yield call(setToLocalStore(), AUTH_TOKEN_KEY, JSON.stringify(action.payload));
+  yield call(setToLocalStore(), AUTH_TOKEN_KEY, action.payload.token);
 }
 
 function* initAuth() {
-  const auth = yield call(getFormLocalStore(), AUTH_TOKEN_KEY);
-  yield put(loginSucceededAction(JSON.parse(auth)));
+  const token = yield call(getFormLocalStore(), AUTH_TOKEN_KEY);
+  if (token) {
+    yield put(loginSucceededAction({ token }));
+  }
 }
 
 function* logout() {

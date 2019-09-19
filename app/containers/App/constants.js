@@ -15,3 +15,4 @@ export const LOGIN_REQUEST = 'app/auth/LOGIN_REQUEST';
 export const LOGIN_FAIL = 'app/auth/LOGIN_FAIL';
 export const LOGIN_SUCCEEDED = 'app/auth/LOGIN_SUCCEEDED';
 export const LOGOUT = 'app/auth/LOGOUT';
+export const CHECK_LOGIN = 'app/auth/CHECK_LOGIN';

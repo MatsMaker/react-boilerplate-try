@@ -17,8 +17,9 @@ import { makeSelectHomeState } from './selectors';
 import TaskList from '../../components/TaskList';
 import SortTaskList from '../../components/SortTaskList';
 import NavigationBar from '../../components/NavigationBar';
+import { KEY } from './constants';
 
-const key = 'home';
+const key = KEY;
 
 export function HomePage({ state, ...props }) {
   useInjectReducer({ key, reducer });

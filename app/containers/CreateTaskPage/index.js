@@ -10,13 +10,14 @@ import { useInjectSaga } from '../../utils/injectSaga';
 import reducer from './reducer';
 import saga from './saga';
 import { KEY } from './constants';
-import { createTaskRequestAction } from './actions';
+import { createTaskRequestAction, resetAction } from './actions';
 import { makeSelectCreateTaskPageState } from './selectors';
 import NavigationBar from '../../components/NavigationBar';
+import H2 from '../../components/H2';
 
 const key = KEY;
 
-function CreateTaskPage({ state, createTask }) {
+function CreateTaskPage({ state, createTask, reset }) {
   useInjectReducer({ key, reducer });
   useInjectSaga({ key, saga });
 
@@ -24,12 +25,22 @@ function CreateTaskPage({ state, createTask }) {
     createTask(value);
   };
 
+  if (state.result) {
+    setTimeout(() => {
+      reset();
+    }, 3000);
+  }
+
   return (
     <>
       <NavigationBar />
+      {state.result && <H2>Created: {state.result.id}</H2>}
       <Wrapper>
-        {state.result && <div>{String(state.result)}</div>}
-        <CreateTaskForm onSubmit={showResult} errors={state.errors} />
+        <CreateTaskForm
+          onSubmit={showResult}
+          errors={state.errors}
+          isReset={!!state.result}
+        />
       </Wrapper>
     </>
   );
@@ -38,6 +49,7 @@ function CreateTaskPage({ state, createTask }) {
 CreateTaskPage.propTypes = {
   state: PropTypes.object,
   createTask: PropTypes.func,
+  reset: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -46,6 +58,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
   createTask: payload => dispatch(createTaskRequestAction(payload)),
+  reset: () => dispatch(resetAction()),
 });
 
 const withConnect = connect(

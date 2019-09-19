@@ -1,8 +1,8 @@
 import produce from 'immer';
 import {
-  TASK_CREATE_REQUEST,
-  TASK_CREATE_FAIL,
-  TASK_CREATE_SUCCEEDED,
+  UPDATE_TASK_REQUEST,
+  UPDATE_TASK_FAIL,
+  UPDATE_TASK_SUCCEEDED,
   RESET,
 } from './constants';
 
@@ -16,15 +16,15 @@ export const initialState = {
 const providerReducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case TASK_CREATE_REQUEST:
+      case UPDATE_TASK_REQUEST:
         draft.result = undefined;
         draft.isCreating = true;
         break;
-      case TASK_CREATE_FAIL:
+      case UPDATE_TASK_FAIL:
         draft.isCreating = false;
         draft.errors = action.error.message;
         break;
-      case TASK_CREATE_SUCCEEDED:
+      case UPDATE_TASK_SUCCEEDED:
         draft.isCreating = false;
         draft.result = action.payload;
         draft.errors = undefined;

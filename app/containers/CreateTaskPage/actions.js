@@ -2,6 +2,7 @@ import {
   TASK_CREATE_REQUEST,
   TASK_CREATE_FAIL,
   TASK_CREATE_SUCCEEDED,
+  RESET,
 } from './constants';
 
 export const createTaskRequestAction = request => ({
@@ -17,4 +18,8 @@ export const createTaskFailAction = error => ({
 export const creteTaskSucceededAction = payload => ({
   type: TASK_CREATE_SUCCEEDED,
   payload,
+});
+
+export const resetAction = () => ({
+  type: RESET,
 });

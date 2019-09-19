@@ -4,7 +4,25 @@ import { Field } from 'redux-form';
 import ErrorList from '../FormErrors';
 
 const TaskForm = props => {
-  const { handleSubmit, pristine, submitting, errors } = props;
+  const {
+    isReset,
+    handleSubmit,
+    pristine,
+    submitting,
+    load,
+    errors,
+    reset,
+    initialValues,
+  } = props;
+
+  if (initialValues && load) {
+    load(initialValues);
+  }
+
+  if (isReset) {
+    reset();
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -50,6 +68,10 @@ TaskForm.propTypes = {
   pristine: PropTypes.bool,
   submitting: PropTypes.bool,
   handleSubmit: PropTypes.func,
+  reset: PropTypes.func,
+  isReset: PropTypes.bool,
+  initialValues: PropTypes.object,
+  load: PropTypes.func,
 };
 
 export default TaskForm;
